@@ -30,35 +30,44 @@ public class Execucao extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_execucao);
 
-        // Inicializa os elementos da UI
+
         tvNomeExercicio = findViewById(R.id.tvNomeExercicio);
         tvDescricaoExercicio = findViewById(R.id.tvDescricaoExercicio);
         tvMusculosRecrutados = findViewById(R.id.tvMusculosRecrutados);
         webViewVideo = findViewById(R.id.webViewVideo);
         btnTTS = findViewById(R.id.btnTTS);
 
-        // Configura o WebView para exibir vídeos do YouTube
+        //  WebView  do YouTube
         WebSettings webSettings = webViewVideo.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setUseWideViewPort(true);
+        webSettings.setDomStorageEnabled(true); // Habilita o DOM Storage para vídeos do YouTube
         webViewVideo.setWebViewClient(new WebViewClient());
 
-        // Exemplo de dados (substituir por dados reais do banco de dados)
-        String nomeExercicio = "Supino Reto com Barra";
-        String descricaoExercicio = "Deite-se em um banco reto, segure a barra com as mãos um pouco mais afastadas que a largura dos ombros. Apos isso pegue na minha e balança  Mateus Desça a barra até tocar levemente o peito e empurre de volta à posição inicial.";
-        String musculosRecrutados = "Peito (principal), Tríceps, Ombros (deltoides anteriores).";
-        String youtubeVideoId = "dQw4w9WgXcQ"; // Exemplo: ID de um vídeo do YouTube
+        // get da Intent
+        Intent intent = getIntent();
+        String nomeExercicio = intent.getStringExtra("nomeExercicio");
+        String descricaoExercicio = intent.getStringExtra("descricaoExercicio");
+        String musculosRecrutados = intent.getStringExtra("musculosRecrutados");
+        String youtubeVideoId = intent.getStringExtra("youtubeVideoId");
 
-        tvNomeExercicio.setText(nomeExercicio);
-        tvDescricaoExercicio.setText(descricaoExercicio);
-        tvMusculosRecrutados.setText(musculosRecrutados);
 
-        // Carrega o vídeo do YouTube na WebView
-        String videoUrl = "https://www.youtube.com/embed/" + youtubeVideoId + "?autoplay=1&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&playsinline=1";
-        webViewVideo.loadData(videoUrl, "text/html", "utf-8");
+        if (nomeExercicio != null) {
+            tvNomeExercicio.setText(nomeExercicio);
+        }
+        if (descricaoExercicio != null) {
+            tvDescricaoExercicio.setText(descricaoExercicio);
+        }
+        if (musculosRecrutados != null) {
+            tvMusculosRecrutados.setText(musculosRecrutados);
+        }
+        if (youtubeVideoId != null) {
+            String html = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/" + youtubeVideoId + "?autoplay=1&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&playsinline=1\" frameborder=\"0\" allowfullscreen></iframe>";
+            webViewVideo.loadData(html, "text/html", "utf-8");
+        }
 
-        // Inicializa o TextToSpeech
+        // TextToSpeech
         textToSpeech = new TextToSpeech(this, status -> {
             if (status == TextToSpeech.SUCCESS) {
                 int result = textToSpeech.setLanguage(new Locale("pt", "BR"));
@@ -70,7 +79,7 @@ public class Execucao extends AppCompatActivity {
             }
         });
 
-        // Listener para o botão TTS
+
         btnTTS.setOnClickListener(v -> {
             String text = tvDescricaoExercicio.getText().toString();
             if (!text.isEmpty()) {
@@ -78,7 +87,7 @@ public class Execucao extends AppCompatActivity {
             }
         });
 
-        // Configuração da BottomNavigationView (existente)
+
         BottomNavigationView nav = findViewById(R.id.bottomNavigationView);
         nav.setSelectedItemId(0); // Nenhum item selecionado por padrão
 
@@ -90,9 +99,9 @@ public class Execucao extends AppCompatActivity {
                 startActivity(new Intent(this, Favoritos.class));
                 return true;
             } else if (item.getItemId() == R.id.nav_logout) {
-                Intent intent = new Intent(this, Login.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                Intent intentLogout = new Intent(this, Login.class);
+                intentLogout.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intentLogout);
                 return true;
             }
             return true;
