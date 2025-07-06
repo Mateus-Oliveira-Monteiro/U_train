@@ -4,5 +4,6 @@
     <color name="amarelo_neon">#FFFF00</color>        <!-- Botões, destaques -->
     <color name="branco_texto">#FFFFFF</color>        <!-- Texto normal -->
     <color name="cinza_hint">#CCCCCC</color>          <!-- Placeholder/hints -->
-    <color name="preto_forte">#000000</color>         <!-- Para contraste -->
+    <color name="preto_forte">#000000</color>
+    <color name="white">#FFFFFF</color>         <!-- Para contraste -->
 </resources>
