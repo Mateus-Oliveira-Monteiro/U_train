@@ -33,8 +33,15 @@ public class Planilha extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Planilha.this, Execucao.class);
+                // Dados de exemplo para passar para a tela de Execução
+                intent.putExtra("nomeExercicio", "Supino Reto com Barra");
+                intent.putExtra("descricaoExercicio", "Deite-se em um banco reto, segure a barra com as mãos um pouco mais afastadas que a largura dos ombros. Desça a barra até tocar levemente o peito e empurre de volta à posição inicial.");
+                intent.putExtra("musculosRecrutados", "Peito (principal), Tríceps, Ombros (deltoides anteriores).");
+                intent.putExtra("youtubeVideoId", "V5iNNV9KaVA"); // ID do vídeo fornecido pelo usuário
                 startActivity(intent);
             }
         });
     }
 }
+
+
