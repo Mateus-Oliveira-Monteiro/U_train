@@ -2,12 +2,14 @@ package br.com.instituto_federal.utrain.planilhas;
 
 public class Exercicio {
 
+    private Integer id;
     private String nome;
     private String descricao;
     private String musculos;
     private String youtubeId;
     private Integer planilhaId;
-    public Exercicio(String nome, String descricao, String musculos, String youtubeId, Integer planilhaId) {
+    public Exercicio(Integer id, String nome, String descricao, String musculos, String youtubeId, Integer planilhaId) {
+        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.musculos = musculos;
@@ -15,6 +17,12 @@ public class Exercicio {
         this.planilhaId = planilhaId;
     }
 
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public String getNome() {
         return nome;
     }
