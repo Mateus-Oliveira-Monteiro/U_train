@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import br.com.instituto_federal.utrain.planilhas.Planilha;
+
 public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +22,21 @@ public class Home extends AppCompatActivity {
         Button p3 = findViewById(R.id.planilha3);
         //Button add = findViewById(R.id.adicionarMaisButton); vai servir pra adicionar a planilha futuramente
 
-        p1.setOnClickListener(v -> startActivity(new Intent(this, Planilha.class)));
-        p2.setOnClickListener(v -> startActivity(new Intent(this, Planilha.class)));
-        p3.setOnClickListener(v -> startActivity(new Intent(this, Planilha.class)));
+        p1.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Planilha.class);
+            intent.putExtra("planilhaId", 1);
+            startActivity(intent);
+        });
+        p2.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Planilha.class);
+            intent.putExtra("planilhaId", 2);
+            startActivity(intent);
+        });
+        p3.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Planilha.class);
+            intent.putExtra("planilhaId", 3);
+            startActivity(intent);
+        });
 
 
         // Navegação inferior
