@@ -1,4 +1,4 @@
-package br.com.instituto_federal.utrain;
+package br.com.instituto_federal.utrain.planilhas;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,14 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.instituto_federal.utrain.Home;
+import br.com.instituto_federal.utrain.Login;
+import br.com.instituto_federal.utrain.R;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class Planilha extends AppCompatActivity {
     @Override
@@ -28,19 +36,16 @@ public class Planilha extends AppCompatActivity {
             return true;
         });
 
-        Button btnExecucao = findViewById(R.id.btnExecucao);
-        btnExecucao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Planilha.this, Execucao.class);
-                // Dados de exemplo para passar para a tela de Execução
-                intent.putExtra("nomeExercicio", "Supino Reto com Barra");
-                intent.putExtra("descricaoExercicio", "Deite-se em um banco reto, segure a barra com as mãos um pouco mais afastadas que a largura dos ombros. Desça a barra até tocar levemente o peito e empurre de volta à posição inicial.");
-                intent.putExtra("musculosRecrutados", "Peito (principal), Tríceps, Ombros (deltoides anteriores).");
-                intent.putExtra("youtubeVideoId", "V5iNNV9KaVA"); // ID do vídeo fornecido pelo usuário
-                startActivity(intent);
-            }
-        });
+
+
+        List<Exercicio> exercicio1 = new ArrayList<>();
+        exercicio1.add(new Exercicio("Agachamento", "Exercício para fortalecer as pernas e glúteos", "Quadríceps, Glúteos", "V5iNNV9KaVA"));
+        exercicio1.add(new Exercicio("Supino", "Exercício para fortalecer o peitoral", "Peitoral, Tríceps", "eG6b1k2a4g0"));
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(this));
+        ExercicioAdapter adapter = new ExercicioAdapter(this, exercicio1);
+        recyclerView.setAdapter(adapter);
+
     }
 }
 

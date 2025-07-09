@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/tvNomeExercicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome do Exercício"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvMusculosRecrutados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="Músculos recrutados"
+        android:textColor="#666"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tvDescricaoExercicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Descrição do exercício"
+        android:textColor="#444"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btnExecucao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/amarelo_neon"
+        android:text="Ir para Execução"
+        android:textColor="@color/azul_escuro" />
+</LinearLayout>

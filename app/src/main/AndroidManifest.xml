@@ -26,9 +26,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Home" android:exported="true" />
-        <activity android:name=".Planilha" android:exported="true" />
+        <activity android:name=".planilhas.Planilha" android:exported="true" />
         <activity android:name=".Favoritos" android:exported="false" />
-        <activity android:name=".Execucao" android:exported="false" />
+        <activity android:name=".planilhas.Execucao" android:exported="false" />
         <activity android:name=".MainActivity" android:exported="true" />
     </application>
 </manifest>

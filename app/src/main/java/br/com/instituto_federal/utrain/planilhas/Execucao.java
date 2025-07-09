@@ -1,4 +1,4 @@
-package br.com.instituto_federal.utrain;
+package br.com.instituto_federal.utrain.planilhas;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Locale;
+
+import br.com.instituto_federal.utrain.Favoritos;
+import br.com.instituto_federal.utrain.Home;
+import br.com.instituto_federal.utrain.Login;
+import br.com.instituto_federal.utrain.R;
 
 public class Execucao extends AppCompatActivity {
 
