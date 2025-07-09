@@ -6,12 +6,13 @@ public class Exercicio {
     private String descricao;
     private String musculos;
     private String youtubeId;
-
-    public Exercicio(String nome, String descricao, String musculos, String youtubeId) {
+    private Integer planilhaId;
+    public Exercicio(String nome, String descricao, String musculos, String youtubeId, Integer planilhaId) {
         this.nome = nome;
         this.descricao = descricao;
         this.musculos = musculos;
         this.youtubeId = youtubeId;
+        this.planilhaId = planilhaId;
     }
 
     public String getNome() {
@@ -39,4 +40,11 @@ public class Exercicio {
         this.youtubeId = youtubeId;
     }
 
+    public Integer getPlanilhaId() {
+        return planilhaId;
+    }
+
+    public void setPlanilhaId(Integer planilhaId) {
+        this.planilhaId = planilhaId;
+    }
 }

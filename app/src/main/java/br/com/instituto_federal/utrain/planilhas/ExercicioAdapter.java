@@ -41,6 +41,7 @@ public class ExercicioAdapter extends RecyclerView.Adapter<ExercicioAdapter.Exer
                 intent.putExtra("nomeExercicio", exercicio.getNome());
                 intent.putExtra("descricaoExercicio", exercicio.getDescricao());
                 intent.putExtra("musculosRecrutados", exercicio.getMusculos());
+                intent.putExtra("youtubeVideoId", exercicio.getYoutubeId());
                 context.startActivity(intent);
         });
     }
