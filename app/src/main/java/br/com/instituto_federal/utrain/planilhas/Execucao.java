@@ -16,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Locale;
 
-import br.com.instituto_federal.utrain.Favoritos;
+import br.com.instituto_federal.utrain.favoritos.Favoritos;
 import br.com.instituto_federal.utrain.Home;
 import br.com.instituto_federal.utrain.Login;
 import br.com.instituto_federal.utrain.R;

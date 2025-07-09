@@ -14,6 +14,7 @@ import java.util.List;
 import br.com.instituto_federal.utrain.Home;
 import br.com.instituto_federal.utrain.Login;
 import br.com.instituto_federal.utrain.R;
+import br.com.instituto_federal.utrain.favoritos.Favoritos;
 
 public class Planilha extends AppCompatActivity {
     @Override
@@ -31,8 +32,11 @@ public class Planilha extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 return true;
+            } else if (item.getItemId() == R.id.nav_favoritos) {
+                startActivity(new Intent(this, Favoritos.class));
+                return true;
             }
-            return true;
+            return false;
         });
 
         int planilhaId = getIntent().getIntExtra("planilhaId", -1);

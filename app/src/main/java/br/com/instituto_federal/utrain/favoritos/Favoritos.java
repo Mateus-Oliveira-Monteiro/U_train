@@ -1,0 +1,92 @@
+package br.com.instituto_federal.utrain.favoritos;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import br.com.instituto_federal.utrain.Home;
+import br.com.instituto_federal.utrain.Login;
+import br.com.instituto_federal.utrain.R;
+import br.com.instituto_federal.utrain.planilhas.Exercicio;
+
+public class Favoritos extends AppCompatActivity {
+    private List<Exercicio> todosExercicios;
+    private List<Exercicio> favoritosList;
+    private FavoritosAdapter adapter;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_favoritos);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewFavoritos);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Carrega todos os exercícios possíveis
+        carregarTodosExercicios();
+
+        // Filtra apenas os favoritos
+        favoritosList = filtrarFavoritos();
+
+        // Seta o adapter
+        adapter = new FavoritosAdapter(this, favoritosList);
+        recyclerView.setAdapter(adapter);
+
+        BottomNavigationView nav = findViewById(R.id.bottomNavigationView);
+        nav.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.nav_home) {
+                startActivity(new Intent(this, Home.class));
+                return true;
+            } else if (item.getItemId() == R.id.nav_logout) {
+                Intent intent = new Intent(this, Login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                return true;
+            }
+            return true;
+        });
+    }
+
+    private void carregarTodosExercicios() {
+        todosExercicios = new ArrayList<>();
+        todosExercicios.add(new Exercicio(1, "Agachamento", "Fortalece pernas", "Quadríceps", "V5iNNV9KaVA", 1));
+        todosExercicios.add(new Exercicio(2, "Leg Press", "Trabalha pernas", "Quadríceps", "abc123", 1));
+        todosExercicios.add(new Exercicio(3, "Extensora", "Trabalha pernas", "Quadríceps", "abc123", 1));
+        todosExercicios.add(new Exercicio(4, "Mesa Flexora", "Trabalha pernas", "Quadríceps", "abc123", 1));
+        todosExercicios.add(new Exercicio(5, "Stiff", "Posicione os pés na largura dos ombros...", "Posterior e Glúteos", "VkLIhN1HSFw", 1));
+        todosExercicios.add(new Exercicio(6, "Supino", "Fortalece peitoral", "Peitoral", "eG6b1k2a4g0", 2));
+        todosExercicios.add(new Exercicio(7, "Crucifixo", "Isola peitoral", "Peitoral", "def456", 2));
+        todosExercicios.add(new Exercicio(8, "Remada", "Fortalece costas", "Dorsal", "ghi789", 3));
+        todosExercicios.add(new Exercicio(9, "Puxada", "Trabalha costas", "Dorsal", "jkl012", 3));
+    }
+
+    private List<Exercicio> filtrarFavoritos() {
+        SharedPreferences prefs = getSharedPreferences("FAVORITOS", MODE_PRIVATE);
+        Set<String> favoritosIds = prefs.getStringSet("exercicios", new HashSet<>());
+
+        List<Exercicio> favoritos = new ArrayList<>();
+        for (Exercicio ex : todosExercicios) {
+            if (favoritosIds.contains(String.valueOf(ex.getId()))) {
+                favoritos.add(ex);
+            }
+        }
+        return favoritos;
+    }
+
+    public void atualizarLista() {
+        favoritosList.clear();
+        favoritosList.addAll(filtrarFavoritos());
+        adapter.notifyDataSetChanged();
+    }
+}
