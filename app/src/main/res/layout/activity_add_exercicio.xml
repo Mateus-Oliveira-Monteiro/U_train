@@ -8,7 +8,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:id="@+id/nomeTela"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cadastrar exercicio"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_marginBottom="20dp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edtNome"
@@ -17,7 +29,9 @@
             android:background="@drawable/rounded_edittext"
             android:hint="Nome do Exercício"
             android:inputType="text"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:textColor="@color/preto_forte"
+            android:textColorHint="@color/cinza_hint" />
 
         <EditText
             android:id="@+id/edtMusculos"
@@ -27,6 +41,8 @@
             android:background="@drawable/rounded_edittext"
             android:hint="Músculos Recrutados"
             android:inputType="text"
+            android:textColor="@color/preto_forte"
+            android:textColorHint="@color/cinza_hint"
             android:padding="12dp" />
 
         <EditText
@@ -38,6 +54,8 @@
             android:hint="Descrição do Exercício"
             android:inputType="textMultiLine"
             android:minLines="3"
+            android:textColor="@color/preto_forte"
+            android:textColorHint="@color/cinza_hint"
             android:padding="12dp" />
 
         <EditText
@@ -49,6 +67,8 @@
             android:background="@drawable/rounded_edittext"
             android:hint="ID do Vídeo do YouTube"
             android:inputType="text"
+            android:textColor="@color/preto_forte"
+            android:textColorHint="@color/cinza_hint"
             android:padding="12dp" />
 
         <Spinner
@@ -56,8 +76,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:background="@drawable/rounded_edittext"
-            android:padding="12dp" />
+            android:background="@color/azul_escuro_contraste"
+            android:padding="12dp"
+            android:popupBackground="@color/azul_escuro_contraste"
+            android:textColorHint="@android:color/white" />
 
 
         <Button
