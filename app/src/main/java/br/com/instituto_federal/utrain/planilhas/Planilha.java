@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.instituto_federal.utrain.Home;
@@ -17,11 +16,30 @@ import br.com.instituto_federal.utrain.R;
 import br.com.instituto_federal.utrain.favoritos.Favoritos;
 
 public class Planilha extends AppCompatActivity {
+
+    private DatabaseHelper db;
+    private RecyclerView recyclerView;
+    private ExercicioAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planilha);
 
+        db = new DatabaseHelper(this);
+        recyclerView = findViewById(R.id.recyclerView);
+
+        // Configurar navegação
+        setupBottomNavigation();
+
+        // Carregar exercícios da planilha
+        int planilhaId = getIntent().getIntExtra("planilhaId", -1);
+        if (planilhaId != -1) {
+            carregarExercicios(planilhaId);
+        }
+    }
+
+    private void setupBottomNavigation() {
         BottomNavigationView nav = findViewById(R.id.bottomNavigationView);
         nav.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.nav_home) {
@@ -38,28 +56,23 @@ public class Planilha extends AppCompatActivity {
             }
             return false;
         });
+    }
 
-        int planilhaId = getIntent().getIntExtra("planilhaId", -1);
+    private void carregarExercicios(int planilhaId) {
+        List<Exercicio> exercicios = db.listarExerciciosPorPlanilha(planilhaId);
 
-        List<Exercicio> exercicios = new ArrayList<>();
-
-        if (planilhaId == 1) {
-            exercicios.add(new Exercicio(1, "Agachamento", "Fortalece pernas", "Quadríceps", "V5iNNV9KaVA", 1));
-            exercicios.add(new Exercicio(2, "Leg Press", "Trabalha pernas", "Quadríceps", "abc123", 1));
-            exercicios.add(new Exercicio(3, "Extensora", "Trabalha pernas", "Quadríceps", "abc123", 1));
-            exercicios.add(new Exercicio(4, "Mesa Flexora", "Trabalha pernas", "Quadríceps", "abc123", 1));
-            exercicios.add(new Exercicio(5, "Stiff", "Posicione os pés na largura dos ombros, pegue a barra ou halteres, estufe o peito, feche as escapulas, leve APENAS o quadril para trás fazendo com que a barra desça rente ao corpo", "Posterior e Glúteos", "VkLIhN1HSFw", 1));
-        } else if (planilhaId == 2) {
-            exercicios.add(new Exercicio(6, "Supino", "Fortalece peitoral", "Peitoral", "eG6b1k2a4g0", 2));
-            exercicios.add(new Exercicio(7, "Crucifixo", "Isola peitoral", "Peitoral", "def456", 2));
-        } else if (planilhaId == 3) {
-            exercicios.add(new Exercicio(8, "Remada", "Fortalece costas", "Dorsal", "ghi789", 3));
-            exercicios.add(new Exercicio(9, "Puxada", "Trabalha costas", "Dorsal", "jkl012", 3));
-        }
-
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(this));
-        ExercicioAdapter adapter = new ExercicioAdapter(this, exercicios);
+        adapter = new ExercicioAdapter(this, exercicios);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Recarregar dados quando a activity volta ao foco
+        int planilhaId = getIntent().getIntExtra("planilhaId", -1);
+        if (planilhaId != -1) {
+            carregarExercicios(planilhaId);
+        }
     }
 }

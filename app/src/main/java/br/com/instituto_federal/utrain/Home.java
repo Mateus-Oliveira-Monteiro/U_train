@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import br.com.instituto_federal.utrain.favoritos.Favoritos;
+import br.com.instituto_federal.utrain.planilhas.AddExercicioActivity;
 import br.com.instituto_federal.utrain.planilhas.Planilha;
 
 public class Home extends AppCompatActivity {
@@ -21,24 +22,16 @@ public class Home extends AppCompatActivity {
         Button p1 = findViewById(R.id.planilha1);
         Button p2 = findViewById(R.id.planilha2);
         Button p3 = findViewById(R.id.planilha3);
-        //Button add = findViewById(R.id.adicionarMaisButton); vai servir pra adicionar a planilha futuramente
+        Button add = findViewById(R.id.adicionarMaisButton);
 
-        p1.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Planilha.class);
-            intent.putExtra("planilhaId", 1);
-            startActivity(intent);
-        });
-        p2.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Planilha.class);
-            intent.putExtra("planilhaId", 2);
-            startActivity(intent);
-        });
-        p3.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Planilha.class);
-            intent.putExtra("planilhaId", 3);
-            startActivity(intent);
-        });
+        p1.setOnClickListener(v -> abrirPlanilha(1));
+        p2.setOnClickListener(v -> abrirPlanilha(2));
+        p3.setOnClickListener(v -> abrirPlanilha(3));
 
+        add.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddExercicioActivity.class);
+            startActivity(intent);
+        });
 
         // Navegação inferior
         BottomNavigationView nav = findViewById(R.id.bottomNavigationView);
@@ -56,5 +49,11 @@ public class Home extends AppCompatActivity {
             }
             return true;
         });
+    }
+
+    private void abrirPlanilha(int planilhaId) {
+        Intent intent = new Intent(this, Planilha.class);
+        intent.putExtra("planilhaId", planilhaId);
+        startActivity(intent);
     }
 }
