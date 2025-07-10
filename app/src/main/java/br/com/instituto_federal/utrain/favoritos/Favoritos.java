@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -50,6 +51,7 @@ public class Favoritos extends AppCompatActivity {
                 startActivity(new Intent(this, Home.class));
                 return true;
             } else if (item.getItemId() == R.id.nav_logout) {
+                Toast.makeText(this, "Deslogando...", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, Login.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
