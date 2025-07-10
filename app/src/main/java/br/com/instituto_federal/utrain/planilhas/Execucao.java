@@ -104,6 +104,7 @@ public class Execucao extends AppCompatActivity {
                 startActivity(new Intent(this, Favoritos.class));
                 return true;
             } else if (item.getItemId() == R.id.nav_logout) {
+                Toast.makeText(this, "Deslogando...", Toast.LENGTH_SHORT).show();
                 Intent intentLogout = new Intent(this, Login.class);
                 intentLogout.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intentLogout);
