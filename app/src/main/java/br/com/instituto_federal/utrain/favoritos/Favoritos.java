@@ -18,6 +18,7 @@ import java.util.Set;
 import br.com.instituto_federal.utrain.Home;
 import br.com.instituto_federal.utrain.Login;
 import br.com.instituto_federal.utrain.R;
+import br.com.instituto_federal.utrain.planilhas.DatabaseHelper;
 import br.com.instituto_federal.utrain.planilhas.Exercicio;
 
 public class Favoritos extends AppCompatActivity {
@@ -58,18 +59,12 @@ public class Favoritos extends AppCompatActivity {
         });
     }
 
+    // trocando o carregamento para dados do slq
     private void carregarTodosExercicios() {
-        todosExercicios = new ArrayList<>();
-        todosExercicios.add(new Exercicio(1, "Agachamento", "Fortalece pernas", "Quadríceps", "V5iNNV9KaVA", 1));
-        todosExercicios.add(new Exercicio(2, "Leg Press", "Trabalha pernas", "Quadríceps", "abc123", 1));
-        todosExercicios.add(new Exercicio(3, "Extensora", "Trabalha pernas", "Quadríceps", "abc123", 1));
-        todosExercicios.add(new Exercicio(4, "Mesa Flexora", "Trabalha pernas", "Quadríceps", "abc123", 1));
-        todosExercicios.add(new Exercicio(5, "Stiff", "Posicione os pés na largura dos ombros...", "Posterior e Glúteos", "VkLIhN1HSFw", 1));
-        todosExercicios.add(new Exercicio(6, "Supino", "Fortalece peitoral", "Peitoral", "eG6b1k2a4g0", 2));
-        todosExercicios.add(new Exercicio(7, "Crucifixo", "Isola peitoral", "Peitoral", "def456", 2));
-        todosExercicios.add(new Exercicio(8, "Remada", "Fortalece costas", "Dorsal", "ghi789", 3));
-        todosExercicios.add(new Exercicio(9, "Puxada", "Trabalha costas", "Dorsal", "jkl012", 3));
+        DatabaseHelper db = new DatabaseHelper(this);
+        todosExercicios = db.listarExercicios(); // pega todos do banco
     }
+
 
     private List<Exercicio> filtrarFavoritos() {
         SharedPreferences prefs = getSharedPreferences("FAVORITOS", MODE_PRIVATE);
