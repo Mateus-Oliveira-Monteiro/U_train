@@ -10,7 +10,7 @@ public class ShareUtils {
         String texto = "Exercício: " + exercicio.getNome() +
                 "\nDescrição: " + exercicio.getDescricao() +
                 "\nMúsculos: " + exercicio.getMusculos() +
-                "\nExecução: https://www.youtube.com/embed/" + exercicio.getYoutubeId() + "?autoplay=1&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&playsinline=1\" frameborder=\"0\" allowfullscreen></iframe>";
+                "\nExecução: https://www.youtube.com/embed/" + exercicio.getYoutubeId() + "?autoplay=1&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&playsinline=1";
 
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
