@@ -68,7 +68,7 @@
         android:id="@+id/adicionarMaisButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Adicionar Mais"
+        android:text="Adicionar exercício"
         android:textStyle="bold"
         android:textColor="@color/azul_escuro"
         android:backgroundTint="@color/amarelo_neon"
