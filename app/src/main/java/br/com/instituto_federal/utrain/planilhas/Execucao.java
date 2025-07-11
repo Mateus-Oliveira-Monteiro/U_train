@@ -68,7 +68,7 @@ public class Execucao extends AppCompatActivity {
             tvMusculosRecrutados.setText(musculosRecrutados);
         }
         if (youtubeVideoId != null) {
-            String html = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/" + youtubeVideoId + "?autoplay=1&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&playsinline=1\" frameborder=\"0\" allowfullscreen></iframe>";
+            String html = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/" + youtubeVideoId + "?autoplay=1&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&playsinline=1";
             webViewVideo.loadData(html, "text/html", "utf-8");
         }
 

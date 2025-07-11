@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import br.com.instituto_federal.utrain.R;
+import br.com.instituto_federal.utrain.utils.ShareUtils;
 
 public class ExercicioAdapter extends RecyclerView.Adapter<ExercicioAdapter.ExercicioViewHolder> {
     private List<Exercicio> exercicios;
@@ -80,6 +81,10 @@ public class ExercicioAdapter extends RecyclerView.Adapter<ExercicioAdapter.Exer
             intent.putExtra("youtubeVideoId", exercicio.getYoutubeId());
             context.startActivity(intent);
         });
+
+        holder.btnCompartilhar.setOnClickListener(v -> {
+            ShareUtils.compartilharExercicio(context, exercicio);
+        });
     }
 
     @Override
@@ -88,6 +93,7 @@ public class ExercicioAdapter extends RecyclerView.Adapter<ExercicioAdapter.Exer
     }
 
     public static class ExercicioViewHolder extends RecyclerView.ViewHolder {
+        public View btnCompartilhar;
         TextView nome, descricao, musculos;
         Button btnExecucao;
         ImageButton btnFavoritar;
@@ -99,6 +105,7 @@ public class ExercicioAdapter extends RecyclerView.Adapter<ExercicioAdapter.Exer
             musculos = itemView.findViewById(R.id.tvMusculosRecrutados);
             btnExecucao = itemView.findViewById(R.id.btnExecucao);
             btnFavoritar = itemView.findViewById(R.id.btnFavoritar);
+            btnCompartilhar = itemView.findViewById(R.id.btnCompartilhar);
         }
     }
 }

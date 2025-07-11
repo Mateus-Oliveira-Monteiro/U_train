@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,9 @@ import java.util.Set;
 import br.com.instituto_federal.utrain.R;
 import br.com.instituto_federal.utrain.planilhas.Execucao;
 import br.com.instituto_federal.utrain.planilhas.Exercicio;
+import br.com.instituto_federal.utrain.utils.ShareUtils;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.ExercicioViewHolder> {
     private List<Exercicio> exercicios;
@@ -27,6 +31,7 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Exer
     public FavoritosAdapter(Context context, List<Exercicio> exercicios) {
         this.context = context;
         this.exercicios = exercicios;
+
     }
 
     @NonNull
@@ -61,13 +66,30 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Exer
                 atualizados.remove(idStr);
                 holder.btnFavoritar.setImageResource(R.drawable.ic_favorite_border);
 
+                int pos = holder.getAdapterPosition();
+                Exercicio removido = exercicios.get(pos);
                 // Remove da lista atual e notifica
-                exercicios.remove(holder.getAdapterPosition());
-                notifyItemRemoved(holder.getAdapterPosition());
+                exercicios.remove(pos);
+                notifyItemRemoved(pos);
+                editor.putStringSet("exercicios", atualizados);
+                editor.apply();
+
+                Snackbar.make(holder.itemView, "Exercício retirado dos favoritos. Deseja desfazer?", Snackbar.LENGTH_LONG)
+                        .setAction("Desfazer", view -> {
+                            atualizados.add(idStr);
+                            editor.putStringSet("exercicios", atualizados);
+                            editor.apply();
+
+                            exercicios.add(pos, removido);
+                            notifyItemInserted(pos);
+                        })
+                        .show();
 
             } else {
                 atualizados.add(idStr);
                 holder.btnFavoritar.setImageResource(R.drawable.ic_favorite);
+                editor.putStringSet("exercicios", atualizados);
+                editor.apply();
             }
 
             editor.putStringSet("exercicios", atualizados);
@@ -82,6 +104,10 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Exer
             intent.putExtra("youtubeVideoId", exercicio.getYoutubeId());
             context.startActivity(intent);
         });
+
+        holder.btnCompartilhar.setOnClickListener(v -> {
+            ShareUtils.compartilharExercicio(context, exercicio);
+        });
     }
 
     @Override
@@ -90,6 +116,7 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Exer
     }
 
     public static class ExercicioViewHolder extends RecyclerView.ViewHolder {
+        public View btnCompartilhar;
         TextView nome, descricao, musculos;
         Button btnExecucao;
         ImageButton btnFavoritar;
@@ -101,6 +128,7 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Exer
             musculos = itemView.findViewById(R.id.tvMusculosRecrutados);
             btnExecucao = itemView.findViewById(R.id.btnExecucao);
             btnFavoritar = itemView.findViewById(R.id.btnFavoritar);
+            btnCompartilhar = itemView.findViewById(R.id.btnCompartilhar);
         }
     }
 }
